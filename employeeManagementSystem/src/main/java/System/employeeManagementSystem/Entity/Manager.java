@@ -20,6 +20,8 @@ public class Manager {
     private String fullName;
     private String emailAddress;
     private String phoneNumber;
+    private String password;
+    private String username;
 
     @Enumerated
     private Role role;
