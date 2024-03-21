@@ -28,19 +28,18 @@ public class Employee implements UserDetails {
     private String phoneNumber;
     private String dateOfBirth;
     private String emailAddress;
-    private String Address;
+    private String address;
     private String password;
+    private String department;
     @Enumerated
     private Role role;
 
     //manager entity
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="manager")
     private Manager manager;
-    //employment entity
-   @OneToOne
-   @JoinColumn(name="employmentInformation")
-   private EmploymentInformation employmentInformation;
+
+
 
 
     @Override

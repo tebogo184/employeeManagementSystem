@@ -1,9 +1,8 @@
 package System.employeeManagementSystem.Service;
 
-import System.employeeManagementSystem.Configuration.SecurityConfig;
 import System.employeeManagementSystem.Entity.Employee;
-import System.employeeManagementSystem.Entity.EmploymentInformation;
-import System.employeeManagementSystem.Filter.JwtsFilter;
+import System.employeeManagementSystem.Entity.Manager;
+import System.employeeManagementSystem.Entity.Role;
 import System.employeeManagementSystem.Repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,21 +24,39 @@ public class AuthenticationService {
 
     @Autowired
     private JwtService jwtService;
+
     @Autowired
-    private EmploymentInformation employmentInformation;
+    private ManagerService managerService;
 
     //add new Employee
     public AuthenticationResponse register(Employee user){
         Employee employee=new Employee();
+        System.out.println("I got to the employee object ");
+        employee.setUsername(user.getUsername());
         employee.setFullName(user.getFullName());
+        System.out.println("I got to the fullname");
         employee.setAddress(user.getAddress());
-        employee.setRole(user.getRole());
+        System.out.println("I got the address");
+        employee.setRole(Role.EMPLOYEE);
+        System.out.println("I got to the role  ");
         employee.setEmailAddress(user.getEmailAddress());
+
         employee.setDateOfBirth(user.getDateOfBirth());
         employee.setPassword(passwordEncoder.encode(user.getPassword()));
+        System.out.println("I got the password ");
         employee.setPhoneNumber(user.getPhoneNumber());
-        employee.setEmploymentInformation(employmentInformation);
+        employee.setDepartment(user.getDepartment());
+        System.out.println("I got to the department ");
+        Manager manager=managerService.createManager(employee);
+        System.out.println("I got to the manager ");
+        employee.setManager(manager);
+        System.out.println("I got to adding the manager ");
+        manager.addEmployee(employee);
+        System.out.println("I am adding the employee");
+
+
         employeeRepo.save(employee);
+        System.out.println("I am saving the employee");
    String token= jwtService.generateToken(employee);
    return new AuthenticationResponse(token);
 
@@ -51,4 +68,6 @@ public class AuthenticationService {
         String token= jwtService.generateToken(employee);
         return new AuthenticationResponse(token);
     }
+
+
 }

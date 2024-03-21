@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Data
 @AllArgsConstructor
@@ -27,14 +30,14 @@ public class Manager {
     private Role role;
 
     //employee entity
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name="employee")
-    private Employee employee;
+    private List<Employee> employees=new ArrayList<>();
 
-    //employment entity
-    @OneToOne
-    @JoinColumn(name="employmentInformation")
-    private EmploymentInformation employmentInformation;
+    public void addEmployee(Employee employee){
+        employees.add(employee);
+    }
+
 
 
 
