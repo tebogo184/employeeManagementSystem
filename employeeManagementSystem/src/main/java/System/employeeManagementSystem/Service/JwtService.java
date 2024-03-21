@@ -17,9 +17,7 @@ import java.util.Date;
 import java.util.function.Function;
 
 @Service
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class JwtService {
 
     private final String SECRET_KEY="ee90e6bb302299a757a3bbbe9a08c238cecec63b9f232b3af606bc72766594f7";

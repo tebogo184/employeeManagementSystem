@@ -2,6 +2,7 @@ package System.employeeManagementSystem.Service;
 
 import System.employeeManagementSystem.Configuration.SecurityConfig;
 import System.employeeManagementSystem.Entity.Employee;
+import System.employeeManagementSystem.Entity.EmploymentInformation;
 import System.employeeManagementSystem.Filter.JwtsFilter;
 import System.employeeManagementSystem.Repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class AuthenticationService {
 
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private EmploymentInformation employmentInformation;
 
     //add new Employee
     public AuthenticationResponse register(Employee user){
@@ -35,6 +38,7 @@ public class AuthenticationService {
         employee.setDateOfBirth(user.getDateOfBirth());
         employee.setPassword(passwordEncoder.encode(user.getPassword()));
         employee.setPhoneNumber(user.getPhoneNumber());
+        employee.setEmploymentInformation(employmentInformation);
         employeeRepo.save(employee);
    String token= jwtService.generateToken(employee);
    return new AuthenticationResponse(token);
