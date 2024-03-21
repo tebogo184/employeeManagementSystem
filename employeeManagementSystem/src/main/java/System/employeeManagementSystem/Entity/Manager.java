@@ -27,7 +27,7 @@ public class Manager {
     private Role role;
 
     //employee entity
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name="employee")
     private Employee employee;
 
