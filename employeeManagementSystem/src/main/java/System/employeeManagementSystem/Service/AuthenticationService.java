@@ -31,32 +31,32 @@ public class AuthenticationService {
     //add new Employee
     public AuthenticationResponse register(Employee user){
         Employee employee=new Employee();
-        System.out.println("I got to the employee object ");
+       
         employee.setUsername(user.getUsername());
         employee.setFullName(user.getFullName());
-        System.out.println("I got to the fullname");
+        
         employee.setAddress(user.getAddress());
-        System.out.println("I got the address");
+        
         employee.setRole(Role.EMPLOYEE);
-        System.out.println("I got to the role  ");
+       
         employee.setEmailAddress(user.getEmailAddress());
 
         employee.setDateOfBirth(user.getDateOfBirth());
         employee.setPassword(passwordEncoder.encode(user.getPassword()));
-        System.out.println("I got the password ");
+       
         employee.setPhoneNumber(user.getPhoneNumber());
         employee.setDepartment(user.getDepartment());
-        System.out.println("I got to the department ");
+       
         Manager manager=managerService.createManager(employee);
-        System.out.println("I got to the manager ");
+        
         employee.setManager(manager);
-        System.out.println("I got to adding the manager ");
+        
         manager.addEmployee(employee);
-        System.out.println("I am adding the employee");
+       
 
 
         employeeRepo.save(employee);
-        System.out.println("I am saving the employee");
+        
    String token= jwtService.generateToken(employee);
    return new AuthenticationResponse(token);
 
